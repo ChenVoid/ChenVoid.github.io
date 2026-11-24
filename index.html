@@ -391,25 +391,18 @@
   }
   .footer a { color: var(--primary); }
 
-  /* ===== Visitor Map (已放大) ===== */
-  .visitor-map {
-    width: 100%;
-    max-width: 600px;    /* 地图最大宽度放大到 600px */
-    height: 320px;       /* 高度放大到 320px */
+  /* ===== Visitor Map ===== */
+  .visitor-map-wrapper {
+    display: flex;
+    justify-content: center;
     margin: 40px auto 0;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: #fff;
-    box-shadow: var(--shadow-sm);
-    line-height: 0;
+    min-height: 180px; /* 为放大后的地图预留空间，避免遮挡底部内容 */
+    width: 100%;
   }
-  .visitor-map iframe,
-  .visitor-map #mapmyvisitors {
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    border: 0 !important;
+  .visitor-map {
+    /* 如果觉得不够大，可以继续调大 scale 的值，比如 1.6 或 1.8 */
+    transform: scale(1.5);
+    transform-origin: top center;
   }
 
   /* ===== Responsive ===== */
@@ -442,7 +435,6 @@
     .pub-media { height: 200px; }
     .links a { padding: 7px 14px; font-size: .85rem; }
     .work-card { padding: 20px; }
-    .visitor-map { height: 240px; } /* 手机端地图高度自适应 */
   }
 </style>
 </head>
@@ -909,9 +901,11 @@
   </footer>
 
   <!-- ================= Visitor Map ================= -->
-  <div class="visitor-map">
-    <script type="text/javascript" id="mapmyvisitors"
-            src="//mapmyvisitors.com/map.js?d=Ub-AFz6Brg0s71MHR-SCWHW5j3d5hIlEoETiFPMd-sk&amp;cl=ffffff&amp;w=a"></script>
+  <div class="visitor-map-wrapper">
+    <div class="visitor-map">
+      <script type="text/javascript" id="mapmyvisitors"
+              src="https://mapmyvisitors.com/map.js?d=Ub-AFz6Brg0s71MHR-SCWHW5j3d5hIlEoETiFPMd-sk&amp;cl=ffffff&amp;w=a"></script>
+    </div>
   </div>
 
 </main>
