@@ -1,586 +1,875 @@
-﻿<!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peng Chen</title>
+<meta name="author" content="Peng Chen">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+<style>
+  /* ===== Reset & Base ===== */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <title>Peng Chen</title>
-  
-  <meta name="author" content="Peng Chen">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #eff6ff;
+    --text: #1e293b;
+    --text-light: #475569;
+    --text-muted: #64748b;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --radius: 14px;
+    --shadow-sm: 0 1px 3px rgba(15, 23, 42, .06);
+    --shadow-md: 0 8px 24px rgba(15, 23, 42, .08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  .container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 56px 24px 72px;
+  }
+
+  /* ===== Section ===== */
+  .section { margin-bottom: 56px; }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    margin-bottom: 24px;
+  }
+  .section-title::before {
+    content: '';
+    width: 4px;
+    height: 22px;
+    border-radius: 2px;
+    background: var(--primary);
+    flex-shrink: 0;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border), transparent);
+  }
+
+  /* ===== Profile ===== */
+  .profile {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+    margin-bottom: 56px;
+  }
+  .profile-info { flex: 1; min-width: 0; }
+  .profile-photo { flex-shrink: 0; width: 230px; }
+  .profile-photo img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 20px;
+    display: block;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .profile h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin-bottom: 6px;
+  }
+  .tagline {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: .95rem;
+    letter-spacing: .02em;
+    margin-bottom: 18px;
+  }
+  .profile-info > p {
+    color: var(--text-light);
+    font-size: .98rem;
+    margin-bottom: 12px;
+  }
+
+  .interests-list {
+    list-style: none;
+    margin: 12px 0 4px;
+  }
+  .interests-list li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 6px;
+    font-size: .95rem;
+    color: var(--text);
+  }
+  .interests-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: .68em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--primary);
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid var(--primary);
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: .95rem;
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin: 18px 0;
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: .9rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    transition: all .2s ease;
+  }
+  .links a:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, .25);
+    text-decoration: none;
+  }
+
+  /* ===== News ===== */
+  .news-list { list-style: none; }
+  .news-list li {
+    display: flex;
+    gap: 18px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: .95rem;
+  }
+  .news-list li:last-child { border-bottom: none; }
+  .news-date {
+    flex-shrink: 0;
+    width: 92px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .82rem;
+    font-weight: 600;
+    color: var(--primary);
+    padding-top: 2px;
+  }
+
+  /* ===== Recent Work ===== */
+  .work-card {
+    background: linear-gradient(135deg, #eff6ff, #faf5ff);
+    border: 1px solid #dbeafe;
+    border-radius: var(--radius);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-sm);
+  }
+  .work-card h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .work-card h3 a { color: var(--text); }
+  .work-card h3 a:hover { color: var(--primary); text-decoration: none; }
+  .work-card p {
+    color: var(--text-light);
+    font-size: .92rem;
+    margin-bottom: 14px;
+  }
+
+  /* ===== Publications ===== */
+  .pub-list { display: flex; flex-direction: column; gap: 22px; }
+
+  .pub-card {
+    display: flex;
+    gap: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all .25s ease;
+  }
+  .pub-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    border-color: #cbd5e1;
+  }
+
+  .pub-media { flex-shrink: 0; width: 300px; }
+  .pub-media img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    background: var(--bg);
+    border: 1px solid var(--border);
+  }
+
+  .pub-content { flex: 1; min-width: 0; }
+
+  .pub-venue {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 3px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .pub-venue.highlight {
+    color: #b45309;
+    background: #fef3c7;
+  }
+
+  .pub-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .pub-title a { color: var(--text); }
+  .pub-title a:hover { color: var(--primary); text-decoration: none; }
+
+  .pub-authors {
+    font-size: .88rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .pub-authors strong { color: var(--text); font-weight: 700; }
+
+  .pub-links { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .pub-links a {
+    font-size: .78rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 6px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: all .2s;
+  }
+  .pub-links a:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .pub-desc {
+    font-size: .88rem;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+
+  /* ===== Timeline (Internships) ===== */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, var(--primary), var(--border));
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 3px solid var(--primary);
+    box-sizing: border-box;
+  }
+
+  .timeline-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .timeline-period {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: .78rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-light);
+    padding: 2px 10px;
+    border-radius: 999px;
+  }
+  .timeline-company { font-weight: 700; font-size: 1rem; }
+  .timeline-desc {
+    font-size: .92rem;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: .85rem;
+    color: var(--text-muted);
+  }
+  .footer a { color: var(--primary); }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 860px) {
+    .profile {
+      flex-direction: column-reverse;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+    .profile-photo { width: 180px; }
+    .profile h1 { font-size: 2.2rem; }
+    .links { justify-content: center; }
+    .interests-list { display: inline-block; text-align: left; }
+    .pub-card { flex-direction: column; }
+    .pub-media { width: 100%; }
+    .pub-content { text-align: left; }
+    .section-title { font-size: 1.3rem; }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 36px 18px 56px; }
+    .news-list li { flex-direction: column; gap: 2px; }
+    .news-date { width: auto; }
+    .timeline-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .pub-card { padding: 16px; }
+    .links a { padding: 7px 14px; font-size: .85rem; }
+    .work-card { padding: 20px; }
+  }
+</style>
 </head>
 
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Peng Chen</name>
-              </p>
-              <p>
-				  I obtained my M.S. degree in Software Engineering from 
-				<a href="http://www.is.cas.cn/">Institute of Software, Chinese Academy of Sciences</a> 
-				in 2026.
-<!--                  supervised by Prof. Hui Chen from ISCAS
-                 and <a href="https://lu-m13.github.io/">Ming Lu</a> from Intel Labs China. -->
-                 I received my B.S. in Computer Science from <a href="https://www.ustb.edu.cn/">University of Science and Technology, Beijing</a> in 2023 and obtained Beijing Distinguished Graduate Award and Beijing Outstanding Graduation Thesis.
-              </p>
-              <p>
-                I serve as a reviewer for international conferences including ICLR, CVPR, AAAI, ICME and ISMAR.
-              </p>
-              <p>
-                My research focuses on the following areas:
-		      <ul>
-			  <li><b>Multimodal LLM</b>: Computer-Use Agent and Agentic RL;</li>
-        	  <!-- <li><b>AIGC</b>: Video/Image Generation, and Unified Multimodal Model;</li> -->
-			  <!-- <li><b>3D Vision</b>: 3DGS and Digital Human;</li> -->
-	              </ul>
-              </p>
-              <!-- <p>
-                <span style="color: blue; font-weight: bold;">I am currently looking for campus recruitment opportunities for 2026, focusing on VLM and GUI agent.</span>
-              </p> -->
-			  <p>
-                <span style="color: blue; font-weight: bold;">I am currently a researcher at Meituan LongCat team（北斗计划）, focusing on Multimodal Foundation LLM and Computer-Use Agent.</span>
-              </p>
-                        
-              <p style="text-align:center">
-                <a href="mailto:chenpeng23@mails.ucas.ac.cn">Email</a> &nbsp/&nbsp
-				<a href="mailto:15145005179">WeChat</a> &nbsp/&nbsp
-                <a href="https://github.com/ChenVoid">Github</a> &nbsp/&nbsp  
-                <a href="https://scholar.google.com/citations?user=uKqB810AAAAJ&hl=zh-CN">Google Scholar</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="assets/imgs/avatar.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="assets/imgs/avatar.jpg" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
+<main class="container">
 
+  <!-- ================= Profile ================= -->
+  <section class="profile">
+    <div class="profile-info">
+      <h1>Peng Chen</h1>
+      <p class="tagline">Multimodal LLM · Computer-Use Agent · Agentic RL</p>
 
-		<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-	          <td style="padding:20px;width:100%;vertical-align:middle">
-	            <heading>News</heading>
-	          </td>
-         </tr>
-        </tbody></table>
+      <p>
+        I obtained my M.S. degree in Software Engineering from
+        <a href="http://www.is.cas.cn/" target="_blank" rel="noopener">Institute of Software, Chinese Academy of Sciences</a>
+        in 2026.
+      </p>
 
-		  <ul>
-			  <li>[2026-06] One paper accepted to ECCV 2026.</li>
-			  <li>[2026-05] One paper accepted to ICML 2026.</li>
-			  <li>[2026-04] One paper accepted to ICMR 2026.</li>
-			  <li>[2026-04] One paper accepted to ACL 2026.</li>
-			  <li>[2026-01] One paper accepted to TVCG 2026.</li>
-			  <li>[2025-07] One paper accepted to ACM MM 2025.</li>
-			  <li>[2025-06] Two papers accepted to ICCV 2025, including one Highlight.</li>
-			  <li>[2025-06] One paper accepted to ICME 2025.</li>
-			  <li>[2024-12] One paper accepted to AAAI 2025.</li>
-			  <li>[2024-12] One paper accepted to NeurIPS Workshop 2024.</li>
-			  <li>[2024-02] One paper accepted to IEEE VR 2024.</li>
-			  <li>[2023-06] Beijing Outstanding Graduation Design (Thesis), 2023.</li>
-			  <li>[2023-06] Beijing Distinguished Graduate Award, 2023.</li>
-		  </ul>
+      <p>
+        I serve as a reviewer for international conferences including
+        ICLR, CVPR, AAAI, ICME and ISMAR.
+      </p>
 
-	
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Selected Research</heading>
-            </td>
-          </tr>
-        </tbody></table>
+      <p><strong>Research interests:</strong></p>
+      <ul class="interests-list">
+        <li><b>Multimodal LLM</b>: Computer-Use Agent and Agentic RL;</li>
+      </ul>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+      <div class="highlight-box">
+        I am currently a researcher at Meituan LongCat team（北斗计划），focusing on
+        Multimodal Foundation LLM and Computer-Use Agent.
+      </div>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="CombatVLA_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/CombatVLA.png' alt="Mixed" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/pdf/2503.09527">
-                <papertitle>[ICCV 2025]</papertitle>
-                CombatVLA: An Efficient Vision-Language-Action Model for Combat Tasks in 3D Action Role-Playing Games
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-              <strong>Peng Chen</strong>,
-              Pi Bu,
-              Yingyao Wang,
-              Xinyi Wang,
-              Ziming Wang,
-              Jie Guo,
-              Yingxiu Zhao,
-              Qi Zhu,
-              Jun Song,
-              Siran Yang,
-              Jiamang Wang,
-              Bo Zheng
-              <br>
-              
-              <!-- <a href="./I-MedSAM">Project</a>
-              / -->
-              <a href="https://arxiv.org/pdf/2503.09527">Paper</a>
-              /
-              <a href="https://combatvla.github.io">Project</a>
-              /
-              <a href="https://combatvla.github.io">Code</a>
-              <p></p>
-              <p>
-                We propose CombatVLA, the first efficient visual-language action model designed for combat tasks in 3D action role-playing games. For efficient decision making, our CombatVLA is a 3B model that processes visual inputs and outputs a sequence of actions to control the game (including keyboard and mouse operations).
-              </p>
-            </td>
-          </tr>
+      <div class="links">
+        <a href="mailto:chenpeng23@mails.ucas.ac.cn">Email</a>
+        <a href="mailto:15145005179">WeChat</a>
+        <a href="https://github.com/ChenVoid" target="_blank" rel="noopener">Github</a>
+        <a href="https://scholar.google.com/citations?user=uKqB810AAAAJ&amp;hl=zh-CN" target="_blank" rel="noopener">Google Scholar</a>
+      </div>
+    </div>
 
-		  <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="Mixed_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/Visual_CoG.png' alt="Visual_CoG.png" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://arxiv.org/pdf/2508.18032">
-                <papertitle>[arXiv 2025, preprint]</papertitle>
-                Visual-CoG: Stage-Aware Reinforcement Learning with Chain of Guidance for Text-to-Image Generation
-              </a>
-              <br>
-			  Yaqi Li*,
-              <strong>Peng Chen*</strong>,
-			  Mingyang Han*,
-			  Pi Bu*,
-			  Haoxiang Shi,
-		      Runzhou Zhao,
-			  Yang Yao,
-		      Xuan Zhang,
-			  Jun Song
-              <br>
-              
-              <!-- <a href="./I-MedSAM">Project</a>
-              / -->
-              <a href="https://arxiv.org/pdf/2508.18032">Paper</a>
-              /
-              <a href="https://arxiv.org/pdf/2508.18032">Project</a>
-              /
-              <a href="https://arxiv.org/pdf/2508.18032">Code</a>
-              <p></p>
-              <p>
-                We propose a unified VLM named Visual-CoG, which leverages reinforcement learning (RL) with stage-aware rewards to provide immediate guidance throughout the image generation process, significantly improving performance on complex text-to-image tasks.
-            </td>
-          </tr>
-          
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="Mixed_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/Mixed.png' alt="Mixed" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://chenvoid.github.io/MGA/">
-                <papertitle>[ACM MM 2025]</papertitle>
-                MixedGaussianAvatar: Realistically and Geometrically Accurate Head Avatar via Mixed 2D-3D Gaussians
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-              <strong>Peng Chen</strong>,
-              Xiaobao Wei,
-              Qingpo Wuwu,
-              Xinyi Wang,
-              Xingyu Xiao,
-              Ming Lu
-              <br>
-              
-              <!-- <a href="./I-MedSAM">Project</a>
-              / -->
-              <a href="https://arxiv.org/abs/2412.04955">Paper</a>
-              /
-              <a href="https://chenvoid.github.io/MGA/">Project</a>
-              /
-              <a href="https://github.com/ChenVoid/MGA/">Code</a>
-              <p></p>
-              <p>
-                We use 2DGS to maintain the surface geometry and employ 3DGS for color correction in areas where the rendering quality of 2DGS is insufficient, reconstructing a realistically and geometrically accurate 3D head avatar.
-              </p>
-            </td>
-          </tr>
+    <div class="profile-photo">
+      <a href="assets/imgs/avatar.jpg" target="_blank" rel="noopener">
+        <img src="assets/imgs/avatar.jpg" alt="Peng Chen">
+      </a>
+    </div>
+  </section>
 
-	  	  <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="Mixed_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/RSATalker.png' alt="RSATalker.png" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://chenvoid.github.io/">
-                <papertitle>[TVCG 2026]</papertitle>
-                RSATalker: Realistic Socially-Aware Talking Head Generation for Multi-Turn Conversation
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-              <strong>Peng Chen</strong>,
-			  Xiaobao Wei,
-			  Yi Yang,
-			  Naiming Yao,
-		      Hui Chen,
-			  Tian Feng
-              <br>
-              
-              <a href="https://chenvoid.github.io/">Paper</a>
-              /
-              <a href="https://chenvoid.github.io/">Project</a>
-              /
-              <a href="https://chenvoid.github.io/">Code</a>
-              <p></p>
-              <p>
-                RSATalker achieves realistic talking head generation for multi-turn conversation. It can perceive the social relationship between the speaker and listener, thereby expressing facial movements more accurately.
-            </td>
-          </tr>
+  <!-- ================= News ================= -->
+  <section class="section">
+    <h2 class="section-title">News</h2>
+    <ul class="news-list">
+      <li><span class="news-date">2026-06</span><span>One paper accepted to ECCV 2026.</span></li>
+      <li><span class="news-date">2026-05</span><span>One paper accepted to ICML 2026.</span></li>
+      <li><span class="news-date">2026-04</span><span>One paper accepted to ICMR 2026.</span></li>
+      <li><span class="news-date">2026-04</span><span>One paper accepted to ACL 2026.</span></li>
+      <li><span class="news-date">2026-01</span><span>One paper accepted to TVCG 2026.</span></li>
+      <li><span class="news-date">2025-07</span><span>One paper accepted to ACM MM 2025.</span></li>
+      <li><span class="news-date">2025-06</span><span>Two papers accepted to ICCV 2025, including one Highlight.</span></li>
+      <li><span class="news-date">2025-06</span><span>One paper accepted to ICME 2025.</span></li>
+      <li><span class="news-date">2024-12</span><span>One paper accepted to AAAI 2025.</span></li>
+      <li><span class="news-date">2024-12</span><span>One paper accepted to NeurIPS Workshop 2024.</span></li>
+      <li><span class="news-date">2024-02</span><span>One paper accepted to IEEE VR 2024.</span></li>
+      <li><span class="news-date">2023-06</span><span>Beijing Outstanding Graduation Design (Thesis), 2023.</span></li>
+      <li><span class="news-date">2023-06</span><span>Beijing Distinguished Graduate Award, 2023.</span></li>
+    </ul>
+  </section>
 
-		  <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="GUI0_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/GUI0.png' alt="GUI0" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://chenvoid.github.io">
-                <papertitle>[ACL 2026]</papertitle>
-                GUI0: Self-Evolving Foundational GUI Agents in Super App Ecosystems
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-			  Xinyi Wang,
-			  Wei Dai, 
-			  Kyle Qiao, 
-			  Ke Wang, 
-			  <strong>Peng Chen</strong>, 
-			  Gang Cao, 
-			  Kangqin, 
-			  Zhongpu Wang, 
-			  Xiaode Zhang, 
-			  Yanming Liu, 
-			  Jihao Gu, 
-			  Jingtao Xu, 
-			  Gong Zhi
-              <br>
-              
+  <!-- ================= Recent Work ================= -->
+  <section class="section">
+    <h2 class="section-title">Recent Work</h2>
+    <div class="work-card">
+      <h3>
+        <a href="https://longcat.ai/blog/longcat-2.5/" target="_blank" rel="noopener">
+          LongCat-2.5: Native Multimodality for Agentic Tasks
+        </a>
+      </h3>
+      <p>Native visual modeling, agentic coding, and 3D tasks.</p>
+      <div class="pub-links">
+        <a href="https://longcat.ai/blog/longcat-2.5/" target="_blank" rel="noopener">Tech Blog</a>
+        <a href="https://huggingface.co/meituan-longcat/LongCat-2.5" target="_blank" rel="noopener">Model</a>
+      </div>
+    </div>
+  </section>
 
-              <a href="https://chenvoid.github.io">Paper</a>
-              /
-              <a href="https://chenvoid.github.io">Project</a>
-              /
-              <a href="https://chenvoid.github.io">Code</a>
-              <p></p>
-              <p>
-                GUI0 leverages autonomous data synthesis and dual-agent co-evolution to enable efficient automated interaction with complex, non-standard GUIs in Super App ecosystems, significantly boosting base model performance and demonstrating strong zero-shot generalization.
-              </p>
-            </td>
-          </tr>
+  <!-- ================= Publications ================= -->
+  <section class="section">
+    <h2 class="section-title">Publications</h2>
+    <div class="pub-list">
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="GazeGaussian_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/GazeGaussian.png' alt="GazeGaussian" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://ucwxb.github.io/GazeGaussian/">
-                <papertitle>[ICCV Highlight 2025]</papertitle>
-                GazeGaussian: High-Fidelity Gaze Redirection with 3D Gaussian Splatting
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-              Xiaobao Wei,
-              <strong>Peng Chen</strong>,
-              Guangyu Li,
-              Ming Lu,
-              Hui Chen,
-              Feng Tian
-              <br>
-              
+      <!-- CombatVLA -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://arxiv.org/pdf/2503.09527" target="_blank" rel="noopener">
+            <img src="assets/imgs/CombatVLA.png" alt="CombatVLA">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">ICCV 2025</span>
+          <h3 class="pub-title">
+            <a href="https://arxiv.org/pdf/2503.09527" target="_blank" rel="noopener">
+              CombatVLA: An Efficient Vision-Language-Action Model for Combat Tasks in 3D Action Role-Playing Games
+            </a>
+          </h3>
+          <p class="pub-authors">
+            <strong>Peng Chen</strong>, Pi Bu, Yingyao Wang, Xinyi Wang, Ziming Wang,
+            Jie Guo, Yingxiu Zhao, Qi Zhu, Jun Song, Siran Yang, Jiamang Wang, Bo Zheng
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/pdf/2503.09527" target="_blank" rel="noopener">Paper</a>
+            <a href="https://combatvla.github.io" target="_blank" rel="noopener">Project</a>
+            <a href="https://combatvla.github.io" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We propose CombatVLA, the first efficient visual-language action model designed
+            for combat tasks in 3D action role-playing games. For efficient decision making,
+            our CombatVLA is a 3B model that processes visual inputs and outputs a sequence of
+            actions to control the game (including keyboard and mouse operations).
+          </p>
+        </div>
+      </article>
 
-              <a href="https://arxiv.org/pdf/2411.12981">Paper</a>
-              /
-              <a href="https://ucwxb.github.io/GazeGaussian/">Project</a>
-              /
-              <a href="https://ucwxb.github.io/GazeGaussian/">Code</a>
-              <p></p>
-              <p>
-                We propose GazeGaussian, a high-fidelity gaze redirection method that uses a two-stream 3DGS model to represent the face and eye regions separately.
-              </p>
-            </td>
-          </tr>
+      <!-- Visual-CoG -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://arxiv.org/pdf/2508.18032" target="_blank" rel="noopener">
+            <img src="assets/imgs/Visual_CoG.png" alt="Visual-CoG">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">arXiv 2025 · Preprint</span>
+          <h3 class="pub-title">
+            <a href="https://arxiv.org/pdf/2508.18032" target="_blank" rel="noopener">
+              Visual-CoG: Stage-Aware Reinforcement Learning with Chain of Guidance for Text-to-Image Generation
+            </a>
+          </h3>
+          <p class="pub-authors">
+            Yaqi Li*, <strong>Peng Chen*</strong>, Mingyang Han*, Pi Bu*, Haoxiang Shi,
+            Runzhou Zhao, Yang Yao, Xuan Zhang, Jun Song
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/pdf/2508.18032" target="_blank" rel="noopener">Paper</a>
+            <a href="https://arxiv.org/pdf/2508.18032" target="_blank" rel="noopener">Project</a>
+            <a href="https://arxiv.org/pdf/2508.18032" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We propose a unified VLM named Visual-CoG, which leverages reinforcement learning (RL)
+            with stage-aware rewards to provide immediate guidance throughout the image generation
+            process, significantly improving performance on complex text-to-image tasks.
+          </p>
+        </div>
+      </article>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="GraphAvatar_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/GraphAvatar.png' alt="GraphAvatar" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://github.com/ucwxb/GraphAvatar">
-                <papertitle>[AAAI 2025]</papertitle>
-                GraphAvatar: Compact Head Avatars with GNN-Generated 3D Gaussians
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <br>
-              Xiaobao Wei,
-              <strong>Peng Chen</strong>,
-              Ming Lu,
-              Hui Chen,
-              Feng Tian
-              <br>
-              <a href="https://ucwxb.github.io/images/GraphAvatar/AAAI25_GraphAvatar.pdf">Paper</a>
-              /
-              <a href="https://github.com/ucwxb/GraphAvatar">Project</a>
-              /
-              <a href="https://github.com/ucwxb/GraphAvatar">Code</a>
-              <p></p>
-              <p>
-                We propose GraphAvatar, a compact method using Graph Neural Networks (GNN) to generate 3D Gaussians for head avatar animation, 
-                offering superior rendering performance and minimal storage requirements.
-              </p>
-            </td>
-          </tr>
+      <!-- MixedGaussianAvatar -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://chenvoid.github.io/MGA/" target="_blank" rel="noopener">
+            <img src="assets/imgs/Mixed.png" alt="MixedGaussianAvatar">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">ACM MM 2025</span>
+          <h3 class="pub-title">
+            <a href="https://chenvoid.github.io/MGA/" target="_blank" rel="noopener">
+              MixedGaussianAvatar: Realistically and Geometrically Accurate Head Avatar via Mixed 2D-3D Gaussians
+            </a>
+          </h3>
+          <p class="pub-authors">
+            <strong>Peng Chen</strong>, Xiaobao Wei, Qingpo Wuwu, Xinyi Wang,
+            Xingyu Xiao, Ming Lu
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/abs/2412.04955" target="_blank" rel="noopener">Paper</a>
+            <a href="https://chenvoid.github.io/MGA/" target="_blank" rel="noopener">Project</a>
+            <a href="https://github.com/ChenVoid/MGA/" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We use 2DGS to maintain the surface geometry and employ 3DGS for color correction in
+            areas where the rendering quality of 2DGS is insufficient, reconstructing a realistically
+            and geometrically accurate 3D head avatar.
+          </p>
+        </div>
+      </article>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="VARP_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/VARP.png' alt="VARP" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://varp-agent.github.io/">
-                <papertitle>[NeurIPS Workshop 2024]</papertitle>
-                Can VLMs Play Action Role-Playing Games? Take Black Myth Wukong as a Study Case
-              </a>
-              <br>
-              <strong>Peng Chen*</strong>,
-              Pi Bu*,
-              Jun Song,
-              Yuan Gao,
-              Bo Zheng
-              <br>
-              
-              <!-- <a href="./I-MedSAM">Project</a>
-              / -->
-              <a href="https://arxiv.org/pdf/2409.12889">Paper</a>
-              /
-              <a href="https://varp-agent.github.io/">Project</a>
-	      <!-- /
-	      <a href="https://mp.weixin.qq.com/s/veHSbBxPIqRexG0OWtg4pw">量子位</a> -->
-              <!-- /
-              <a href="https://github.com/ChenVoid/DiffusionTalker">Code</a> -->
-              <p></p>
-              <p>
-                We propose a novel framework named the VARP agent, which directly takes game screenshots as input and generates keyboard and mouse operations to play the ARPG.
-              </p>
-            </td>
-          </tr>
+      <!-- RSATalker -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://chenvoid.github.io/" target="_blank" rel="noopener">
+            <img src="assets/imgs/RSATalker.png" alt="RSATalker">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">TVCG 2026</span>
+          <h3 class="pub-title">
+            <a href="https://chenvoid.github.io/" target="_blank" rel="noopener">
+              RSATalker: Realistic Socially-Aware Talking Head Generation for Multi-Turn Conversation
+            </a>
+          </h3>
+          <p class="pub-authors">
+            <strong>Peng Chen</strong>, Xiaobao Wei, Yi Yang, Naiming Yao, Hui Chen, Tian Feng
+          </p>
+          <div class="pub-links">
+            <a href="https://chenvoid.github.io/" target="_blank" rel="noopener">Paper</a>
+            <a href="https://chenvoid.github.io/" target="_blank" rel="noopener">Project</a>
+            <a href="https://chenvoid.github.io/" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            RSATalker achieves realistic talking head generation for multi-turn conversation.
+            It can perceive the social relationship between the speaker and listener, thereby
+            expressing facial movements more accurately.
+          </p>
+        </div>
+      </article>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="DiffusionTalker_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/DiffusionTalker.png' alt="DiffusionTalker" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://chenvoid.github.io/DT/">
-                <papertitle>[ICME 2025]</papertitle>
-                DiffusionTalker: Efficient and Compact Speech-Driven 3D Talking Head via Personalizer-Guided Distillation
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-B)</span> -->
-              <br>
-              <strong>Peng Chen</strong>,
-              Xiaobao Wei,
-              Ming Lu,
-              Hui Chen,
-              Feng Tian
-              <br>
-              <a href="https://chenvoid.github.io/DT/static/files/DiffusionTalker.pdf">Paper</a>
-              /
-              <a href="https://chenvoid.github.io/DT/">Project</a>
-              /
-              <a href="https://github.com/ChenVoid/DT">Code</a>
-              <p></p>
-              <p>
-                We propose DiffusionTalker, a diffusion-based method that utilizes contrastive personalizer to generate personalized 3D facial animation and personalizer-guided distillation for acceleration and compression.
-              </p>
-            </td>
-          </tr>
+      <!-- GUI0 -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://chenvoid.github.io" target="_blank" rel="noopener">
+            <img src="assets/imgs/GUI0.png" alt="GUI0">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">ACL 2026</span>
+          <h3 class="pub-title">
+            <a href="https://chenvoid.github.io" target="_blank" rel="noopener">
+              GUI0: Self-Evolving Foundational GUI Agents in Super App Ecosystems
+            </a>
+          </h3>
+          <p class="pub-authors">
+            Xinyi Wang, Wei Dai, Kyle Qiao, Ke Wang, <strong>Peng Chen</strong>, Gang Cao,
+            Kangqin, Zhongpu Wang, Xiaode Zhang, Yanming Liu, Jihao Gu, Jingtao Xu, Gong Zhi
+          </p>
+          <div class="pub-links">
+            <a href="https://chenvoid.github.io" target="_blank" rel="noopener">Paper</a>
+            <a href="https://chenvoid.github.io" target="_blank" rel="noopener">Project</a>
+            <a href="https://chenvoid.github.io" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            GUI0 leverages autonomous data synthesis and dual-agent co-evolution to enable efficient
+            automated interaction with complex, non-standard GUIs in Super App ecosystems,
+            significantly boosting base model performance and demonstrating strong zero-shot generalization.
+          </p>
+        </div>
+      </article>
 
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="two" id="BYOC_image" style="display: inline;"> 
-              </div>
-                <img src='assets/imgs/BYOC.png' alt="BYOC" width="320" height="180">
-              </div>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://www.computer.org/csdl/proceedings-article/vr/2024/740200a429/1Wab5t3uZji">
-                <papertitle>[IEEE VR 2024]</papertitle>
-                Bring Your Own Character: A Holistic Solution for Automatic Facial Animation Generation of Customized Characters
-              </a>
-				<!-- <span style="color:red;font-weight:bold;">(CCF-A)</span> -->
-              <!-- &nbsp;&nbsp;<span style="color: red; font-style: italic;">(CCF-A)</span> -->
-              <br>
-              Zechen Bai*,
-              <strong>Peng Chen*</strong>,
-              Xiaolan Peng,
-              Lu Liu,
-              Naiming Yao,
-              Hui Chen,
-              <!-- Mike Zheng Shou, -->
-              Feng Tian
-              <br>
-              <!-- <a href="./I-MedSAM">Project</a>
-              / -->
-              <a href="https://arxiv.org/pdf/2402.13724">Paper</a>
-              <!-- / -->
-              <!-- <a href="https://chenvoid.github.io/">Project</a> -->
-              /
-              <a href="https://github.com/showlab/BYOC">Code</a>
-              <p></p>
-              <p>
-                Given a target facial video as reference, bring your own character into our solution integrated with Unity3D, it automatically generates facial animation for the virtual character.
-              </p>
-            </td>
-          </tr>
+      <!-- GazeGaussian -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://ucwxb.github.io/GazeGaussian/" target="_blank" rel="noopener">
+            <img src="assets/imgs/GazeGaussian.png" alt="GazeGaussian">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue highlight">ICCV 2025 · Highlight</span>
+          <h3 class="pub-title">
+            <a href="https://ucwxb.github.io/GazeGaussian/" target="_blank" rel="noopener">
+              GazeGaussian: High-Fidelity Gaze Redirection with 3D Gaussian Splatting
+            </a>
+          </h3>
+          <p class="pub-authors">
+            Xiaobao Wei, <strong>Peng Chen</strong>, Guangyu Li, Ming Lu, Hui Chen, Feng Tian
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/pdf/2411.12981" target="_blank" rel="noopener">Paper</a>
+            <a href="https://ucwxb.github.io/GazeGaussian/" target="_blank" rel="noopener">Project</a>
+            <a href="https://ucwxb.github.io/GazeGaussian/" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We propose GazeGaussian, a high-fidelity gaze redirection method that uses a two-stream
+            3DGS model to represent the face and eye regions separately.
+          </p>
+        </div>
+      </article>
 
+      <!-- GraphAvatar -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://github.com/ucwxb/GraphAvatar" target="_blank" rel="noopener">
+            <img src="assets/imgs/GraphAvatar.png" alt="GraphAvatar">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">AAAI 2025</span>
+          <h3 class="pub-title">
+            <a href="https://github.com/ucwxb/GraphAvatar" target="_blank" rel="noopener">
+              GraphAvatar: Compact Head Avatars with GNN-Generated 3D Gaussians
+            </a>
+          </h3>
+          <p class="pub-authors">
+            Xiaobao Wei, <strong>Peng Chen</strong>, Ming Lu, Hui Chen, Feng Tian
+          </p>
+          <div class="pub-links">
+            <a href="https://ucwxb.github.io/images/GraphAvatar/AAAI25_GraphAvatar.pdf" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/ucwxb/GraphAvatar" target="_blank" rel="noopener">Project</a>
+            <a href="https://github.com/ucwxb/GraphAvatar" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We propose GraphAvatar, a compact method using Graph Neural Networks (GNN) to generate
+            3D Gaussians for head avatar animation, offering superior rendering performance and
+            minimal storage requirements.
+          </p>
+        </div>
+      </article>
 
-        </tbody></table>
-        
+      <!-- VARP -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://varp-agent.github.io/" target="_blank" rel="noopener">
+            <img src="assets/imgs/VARP.png" alt="VARP">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">NeurIPS Workshop 2024</span>
+          <h3 class="pub-title">
+            <a href="https://varp-agent.github.io/" target="_blank" rel="noopener">
+              Can VLMs Play Action Role-Playing Games? Take Black Myth Wukong as a Study Case
+            </a>
+          </h3>
+          <p class="pub-authors">
+            <strong>Peng Chen*</strong>, Pi Bu*, Jun Song, Yuan Gao, Bo Zheng
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/pdf/2409.12889" target="_blank" rel="noopener">Paper</a>
+            <a href="https://varp-agent.github.io/" target="_blank" rel="noopener">Project</a>
+          </div>
+          <p class="pub-desc">
+            We propose a novel framework named the VARP agent, which directly takes game screenshots
+            as input and generates keyboard and mouse operations to play the ARPG.
+          </p>
+        </div>
+      </article>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-          <tbody>
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle;">
-                <heading>Internships</heading>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        
-        <ul>
-          <li>
-            [02/2026 - 07/2026] <b>Meituan, M17, LongCat (北斗计划)</b>
-            <div style="margin-top:5px; margin-bottom:5px;">
-              <!-- <img src="assets/imgs/taotian.png" alt="Alibaba Logo" style="height:30px;vertical-align:middle;margin-right:10px;"> -->
-              Research intern focused on the mid-training and post-training of LongCat multimodal foundation model, with a particular emphasis on GUI-agent capabilities, especially computer-use agents.
-            </div>
-          </li>
-			
-          <li>
-            [05/2025 - 12/2025] <b>Tencent, TEG, Hunyuan (青云计划)</b>
-            <div style="margin-top:5px; margin-bottom:5px;">
-              <!-- <img src="assets/imgs/taotian.png" alt="Alibaba Logo" style="height:30px;vertical-align:middle;margin-right:10px;"> -->
-              Research intern for RL fine-tuning of VLM foundational models and distillation acceleration of video generation models.
-            </div>
-          </li>
-          <li>
-            [04/2024 - 05/2025] <b>Alibaba, Taotian, Future Living Lab</b>
-            <div style="margin-top:5px; margin-bottom:5px;">
-              <!-- <img src="assets/imgs/taotian.png" alt="Alibaba Logo" style="height:30px;vertical-align:middle;margin-right:10px;"> -->
-              Research intern for VLM, focusing on game and GUI agent, RL-based thinking model, and unified language models.
-            </div>
-          </li>
-          <li>
-            [11/2023 - 04/2024] <b>AMD, Xilinx AI</b>
-            <div style="margin-top:5px; margin-bottom:5px;">
-              <!-- <img src="assets/imgs/AMD.png" alt="AMD Logo" style="height:30px;vertical-align:middle;margin-right:10px;"> -->
-              Research intern for diffusion-based AIGC, especially focused on improving ControlNet and Stable Diffusion for image generation.
-            </div>
-          </li>
-          <li>
-            [07/2023 - 08/2023] <b>Baidu, ACG</b>
-            <div style="margin-top:5px; margin-bottom:5px;">
-              <!-- <img src="assets/imgs/baidu.png" alt="Baidu Logo" style="height:30px;vertical-align:middle;margin-right:10px;"> -->
-              Research intern for LLM evaluation, focusing on the automated evaluation of text-based question-answering tasks for the Wenxin large language model and reward model.
-            </div>
-          </li>
-        </ul>
-        
-        
+      <!-- DiffusionTalker -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://chenvoid.github.io/DT/" target="_blank" rel="noopener">
+            <img src="assets/imgs/DiffusionTalker.png" alt="DiffusionTalker">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">ICME 2025</span>
+          <h3 class="pub-title">
+            <a href="https://chenvoid.github.io/DT/" target="_blank" rel="noopener">
+              DiffusionTalker: Efficient and Compact Speech-Driven 3D Talking Head via Personalizer-Guided Distillation
+            </a>
+          </h3>
+          <p class="pub-authors">
+            <strong>Peng Chen</strong>, Xiaobao Wei, Ming Lu, Hui Chen, Feng Tian
+          </p>
+          <div class="pub-links">
+            <a href="https://chenvoid.github.io/DT/static/files/DiffusionTalker.pdf" target="_blank" rel="noopener">Paper</a>
+            <a href="https://chenvoid.github.io/DT/" target="_blank" rel="noopener">Project</a>
+            <a href="https://github.com/ChenVoid/DT" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            We propose DiffusionTalker, a diffusion-based method that utilizes contrastive personalizer
+            to generate personalized 3D facial animation and personalizer-guided distillation for
+            acceleration and compression.
+          </p>
+        </div>
+      </article>
 
-        <!-- <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-          <td style="padding:20px;width:100%;vertical-align:middle">
-            <heading>News</heading>
-          </td>
-        </tr>
-      </tbody></table>
+      <!-- BYOC -->
+      <article class="pub-card">
+        <div class="pub-media">
+          <a href="https://www.computer.org/csdl/proceedings-article/vr/2024/740200a429/1Wab5t3uZji" target="_blank" rel="noopener">
+            <img src="assets/imgs/BYOC.png" alt="BYOC">
+          </a>
+        </div>
+        <div class="pub-content">
+          <span class="pub-venue">IEEE VR 2024</span>
+          <h3 class="pub-title">
+            <a href="https://www.computer.org/csdl/proceedings-article/vr/2024/740200a429/1Wab5t3uZji" target="_blank" rel="noopener">
+              Bring Your Own Character: A Holistic Solution for Automatic Facial Animation Generation of Customized Characters
+            </a>
+          </h3>
+          <p class="pub-authors">
+            Zechen Bai*, <strong>Peng Chen*</strong>, Xiaolan Peng, Lu Liu,
+            Naiming Yao, Hui Chen, Feng Tian
+          </p>
+          <div class="pub-links">
+            <a href="https://arxiv.org/pdf/2402.13724" target="_blank" rel="noopener">Paper</a>
+            <a href="https://github.com/showlab/BYOC" target="_blank" rel="noopener">Code</a>
+          </div>
+          <p class="pub-desc">
+            Given a target facial video as reference, bring your own character into our solution
+            integrated with Unity3D, it automatically generates facial animation for the virtual character.
+          </p>
+        </div>
+      </article>
 
-      <ul>
-		  <li>[2026-06] One paper accepted to ECCV 2026.</li>
-		  <li>[2026-05] One paper accepted to ICML 2026.</li>
-		  <li>[2026-04] One paper accepted to ICMR 2026.</li>
-		  <li>[2026-04] One paper accepted to ACL 2026.</li>
-		  <li>[2026-01] One paper accepted to TVCG 2026.</li>
-		  <li>[2025-07] One paper accepted to ACM MM 2025.</li>
-		  <li>[2025-06] Two papers accepted to ICCV 2025, including one Highlight.</li>
-		  <li>[2025-06] One paper accepted to ICME 2025.</li>
-		  <li>[2024-12] One paper accepted to AAAI 2025.</li>
-		  <li>[2024-12] One paper accepted to NeurIPS Workshop 2024.</li>
-		  <li>[2024-02] One paper accepted to IEEE VR 2024.</li>
-		  <li>[2023-06] Beijing Outstanding Graduation Design (Thesis), 2023.</li>
-		  <li>[2023-06] Beijing Distinguished Graduate Award, 2023.</li>
-      </ul> -->
+    </div>
+  </section>
 
-<!--       <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-        <tbody>
-          <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle;">
-              <heading>Miscellaneous</heading>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle;">
-              <details>
-                <summary>Friends (click to expand, random order)</summary>
-                <ul>
-                  <li><a href="https://ucwxb.github.io/">Xiaobao Wei</a></li>
-                  <li><a href="https://www.baizechen.site/">Zechen Bai</a></li>
-                  <li><a href="https://icyfeather233.github.io/">Mengzhuo Chen</a></li>
-                </ul>
-              </details>
-            </td>
-          </tr>
-        </tbody>
-      </table> -->
-      
+  <!-- ================= Internships ================= -->
+  <section class="section">
+    <h2 class="section-title">Internships</h2>
+    <div class="timeline">
 
-    <script type="text/javascript" id="mapmyvisitors" src="//mapmyvisitors.com/map.js?d=Ub-AFz6Brg0s71MHR-SCWHW5j3d5hIlEoETiFPMd-sk&cl=ffffff&w=a"></script>
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <span class="timeline-period">02/2026 – 07/2026</span>
+          <span class="timeline-company">Meituan, M17, LongCat（北斗计划）</span>
+        </div>
+        <p class="timeline-desc">
+          Research intern focused on the mid-training and post-training of LongCat multimodal
+          foundation model, with a particular emphasis on GUI-agent capabilities, especially
+          computer-use agents.
+        </p>
+      </div>
 
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <span class="timeline-period">05/2025 – 12/2025</span>
+          <span class="timeline-company">Tencent, TEG, Hunyuan（青云计划）</span>
+        </div>
+        <p class="timeline-desc">
+          Research intern for RL fine-tuning of VLM foundational models and distillation
+          acceleration of video generation models.
+        </p>
+      </div>
 
-					
-    </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-            <td style="padding:0px">
-              <br>
-              <p style="text-align:right;font-size:small;">
-                Last updated: Oct. 2026
-                <br>
-                Web page design credit to <a href="https://jonbarron.info" style="font-size: 14px">Jon Barron</a>
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
-  </table>
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <span class="timeline-period">04/2024 – 05/2025</span>
+          <span class="timeline-company">Alibaba, Taotian, Future Living Lab</span>
+        </div>
+        <p class="timeline-desc">
+          Research intern for VLM, focusing on game and GUI agent, RL-based thinking model,
+          and unified language models.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <span class="timeline-period">11/2023 – 04/2024</span>
+          <span class="timeline-company">AMD, Xilinx AI</span>
+        </div>
+        <p class="timeline-desc">
+          Research intern for diffusion-based AIGC, especially focused on improving ControlNet
+          and Stable Diffusion for image generation.
+        </p>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-head">
+          <span class="timeline-period">07/2023 – 08/2023</span>
+          <span class="timeline-company">Baidu, ACG</span>
+        </div>
+        <p class="timeline-desc">
+          Research intern for LLM evaluation, focusing on the automated evaluation of text-based
+          question-answering tasks for the Wenxin large language model and reward model.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= Footer ================= -->
+  <footer class="footer">
+    <span>Last updated: Oct. 2026</span>
+    <span>Web page design credit to <a href="https://jonbarron.info" target="_blank" rel="noopener">Jon Barron</a></span>
+  </footer>
+
+</main>
+
+<!-- Visitor map (optional) -->
+<script type="text/javascript" id="mapmyvisitors"
+        src="//mapmyvisitors.com/map.js?d=Ub-AFz6Brg0s71MHR-SCWHW5j3d5hIlEoETiFPMd-sk&amp;cl=ffffff&amp;w=a"></script>
+
 </body>
-
 </html>
